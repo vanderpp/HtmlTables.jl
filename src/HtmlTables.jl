@@ -5,7 +5,7 @@ module HtmlTables
 
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
     
-    dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
+    #dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
 
 
     function htmlTableHeaders(SqlResult)
@@ -46,7 +46,7 @@ module HtmlTables
         return result
     end
 
-    function retrievePKtuplesForTable(tableName)
+    function retrievePKtuplesForTable(tableName, dbpath)
         # Part 1: determine for a provided table which are the primary key field lists
         
         SqlStatement  = "SELECT l.name FROM pragma_table_info('$tableName') as l WHERE l.pk <> 0;"
@@ -88,7 +88,7 @@ module HtmlTables
         pkTuples
     end
 
-    function htmlTable(tableName)
+    function htmlTable(tableName,dbpath)
         
         
         databaseConnection = SQLite.DB(dbpath)
@@ -102,7 +102,7 @@ module HtmlTables
         return "<table>"*headers*data*"</table>"
     end
 
-    function htmlTableForQuery(SqlStatement)
+    function htmlTableForQuery(SqlStatement,dbpath)
         
         databaseConnection = SQLite.DB(dbpath)
         
@@ -113,7 +113,7 @@ module HtmlTables
         return "<table>"*headers*data*"</table>"
     end
 
-    function executeInsert(SqlStatement)
+    function executeInsert(SqlStatement,dbpath)
         databaseConnection = SQLite.DB(dbpath)
 
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
