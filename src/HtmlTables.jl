@@ -5,7 +5,7 @@ module HtmlTables
 
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
 
-    #const DATABASEFILE = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
+    global DATABASEFILE # = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
 
 
     function htmlTableHeaders(SqlResult)
