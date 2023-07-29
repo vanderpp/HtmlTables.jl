@@ -4,10 +4,8 @@ module HtmlTables
     using Tables
 
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
-
-    DATABASEFILE = ENV["databasefilepath"]
     
-    #DATABASEFILE = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
+    dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
 
 
     function htmlTableHeaders(SqlResult)
@@ -52,8 +50,7 @@ module HtmlTables
         # Part 1: determine for a provided table which are the primary key field lists
         
         SqlStatement  = "SELECT l.name FROM pragma_table_info('$tableName') as l WHERE l.pk <> 0;"
-        #DATABASEFILE = "C:\\Users\\van der paelt.p\\My Drive\\SC622\\SC622_AY22-23\\Databases\\weaponshop.sqlite"
-        databaseConnection = SQLite.DB(DATABASEFILE)
+        databaseConnection = SQLite.DB(dbpath)
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
         
         df = DataFrame(SqlResult)
@@ -94,7 +91,7 @@ module HtmlTables
     function htmlTable(tableName)
         
         
-        databaseConnection = SQLite.DB(DATABASEFILE)
+        databaseConnection = SQLite.DB(dbpath)
         
         SqlStatement = "SELECT * FROM $tableName"
         
@@ -107,7 +104,7 @@ module HtmlTables
 
     function htmlTableForQuery(SqlStatement)
         
-        databaseConnection = SQLite.DB(DATABASEFILE)
+        databaseConnection = SQLite.DB(dbpath)
         
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
 
@@ -117,7 +114,7 @@ module HtmlTables
     end
 
     function executeInsert(SqlStatement)
-        databaseConnection = SQLite.DB(DATABASEFILE)
+        databaseConnection = SQLite.DB(dbpath)
 
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
         return SqlResult
