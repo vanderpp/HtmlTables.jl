@@ -5,7 +5,9 @@ module HtmlTables
 
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
     
-    #dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
+    """
+    getDbPath() will retrieve the path of the target db from the environment variable "htmltables_dbpath".
+    """
     function getDbPath()
         dbpath = joinpath(ENV["htmltables_dbpath"])
         return dbpath
@@ -53,9 +55,9 @@ module HtmlTables
         return result
     end
     """
-    Annotation to be completed
+    The function retrievePKtuplesForTable(tableName) takes an argument tableName: a table present in the target database and returns an array that contains string-joined uniquely identifying attribute values that identify the tuples present in the table. The function is designed to serve as an input for an iteration that generates html-form options. The inteded use is to create html pages allowing to insert relationships between entities that exist in two or more tables.
     """
-    function retrievePKtuplesForTable(tableName)#, dbpath)
+    function retrievePKtuplesForTable(tableName)
         dbpath = getDbPath()
         # Part 1: determine for a provided table which are the primary key field lists
         
@@ -98,9 +100,7 @@ module HtmlTables
         pkTuples
     end
     """
-    The function htmlTable(tableName,dbpath) takes as argument dbpath: the path to a SQLite database file and tableName: a table present in that database. 
-    It returns a well-formatted html table containing all tuples present in that table. Each tuple contains all attributes. 
-    It depends on the internal functions htmlTableHeaders and htmlTableData for the construction of the header row an the tuples rows.
+    The function htmlTable(tableName) takes an argument tableName: a table present in the target database and returns a well-formatted html table containing all tuples present in that table. Each tuple contains all attributes. It depends on the internal functions htmlTableHeaders() and htmlTableData() for the construction of the header row an the tuples rows.
     """
     function htmlTable(tableName)#,dbpath)
         dbpath = getDbPath()
@@ -116,13 +116,11 @@ module HtmlTables
         return "<table>"*headers*data*"</table>"
     end
     """
-    The function htmlTableForQuery(SqlStatement,dbpath) takes as argument dbpath: the path to a SQLite database file and an SqlStatement: an SQL statement that will be executed against the databsae.
-    Given the SQL statement was a SELECT ... FROM ... it returns a well-formatted html table containing all tuples returned by the query.
-    It depends on the internal functions htmlTableHeaders and htmlTableData for the construction of the header row an the tuples rows.
+    The function htmlTableForQuery(SqlStatement) takes an argument SqlStatement: an SQL statement that will be executed against the database. Given the SQL statement was a SELECT ... FROM ... it returns a well-formatted html table containing all tuples returned by the query.  It depends on the internal functions htmlTableHeaders() and htmlTableData() for the construction of the header row an the tuples rows.
 
     WARNING: there is no checking of the type of query provided so this couls lead to malicious operations against the database.
     """
-    function htmlTableForQuery(SqlStatement)#,dbpath)
+    function htmlTableForQuery(SqlStatement)
         dbpath = getDbPath()
         databaseConnection = SQLite.DB(dbpath)
         
@@ -135,7 +133,7 @@ module HtmlTables
     """
     Annotation to be completed
     """
-    function executeInsert(SqlStatement)#,dbpath)
+    function executeInsert(SqlStatement)
         dbpath = getDbPath()
         databaseConnection = SQLite.DB(dbpath)
 
