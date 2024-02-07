@@ -1,1 +1,2 @@
-ENV["dbpath"] = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
+ENV["htmltables_dbpath"] = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
+using HtmlTables

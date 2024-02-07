@@ -6,7 +6,7 @@ module HtmlTables
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
     
     #dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
-    dbpath = ENV["dbpath"]
+    dbpath = ENV["htmltables_dbpath"]
     """
     Annotation to be completed
     """
