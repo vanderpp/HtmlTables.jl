@@ -1,3 +1,4 @@
+ENV["dbpath"] = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
 module HtmlTables
     using SQLite
     using DataFrames
@@ -6,7 +7,7 @@ module HtmlTables
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
     
     #dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
-
+    dbpath = ENV["dbpath"]
     """
     Annotation to be completed
     """
@@ -52,7 +53,7 @@ module HtmlTables
     """
     Annotation to be completed
     """
-    function retrievePKtuplesForTable(tableName, dbpath)
+    function retrievePKtuplesForTable(tableName)#, dbpath)
         # Part 1: determine for a provided table which are the primary key field lists
         
         SqlStatement  = "SELECT l.name FROM pragma_table_info('$tableName') as l WHERE l.pk <> 0;"
@@ -98,7 +99,7 @@ module HtmlTables
     It returns a well-formatted html table containing all tuples present in that table. Each tuple contains all attributes. 
     It depends on the internal functions htmlTableHeaders and htmlTableData for the construction of the header row an the tuples rows.
     """
-    function htmlTable(tableName,dbpath)
+    function htmlTable(tableName)#,dbpath)
         
         
         databaseConnection = SQLite.DB(dbpath)
@@ -118,7 +119,7 @@ module HtmlTables
 
     WARNING: there is no checking of the type of query provided so this couls lead to malicious operations against the database.
     """
-    function htmlTableForQuery(SqlStatement,dbpath)
+    function htmlTableForQuery(SqlStatement)#,dbpath)
         
         databaseConnection = SQLite.DB(dbpath)
         
@@ -131,7 +132,7 @@ module HtmlTables
     """
     Annotation to be completed
     """
-    function executeInsert(SqlStatement,dbpath)
+    function executeInsert(SqlStatement)#,dbpath)
         databaseConnection = SQLite.DB(dbpath)
 
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
