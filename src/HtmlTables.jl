@@ -6,7 +6,10 @@ module HtmlTables
     export htmlTable, executeInsert, retrievePKtuplesForTable, htmlTableForQuery
     
     #dbpath = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
-    dbpath = joinpath(ENV["htmltables_dbpath"])
+    function getDbPath()
+        dbpath = joinpath(ENV["htmltables_dbpath"])
+        return dbpath
+    end
     """
     Annotation to be completed
     """
@@ -53,6 +56,7 @@ module HtmlTables
     Annotation to be completed
     """
     function retrievePKtuplesForTable(tableName)#, dbpath)
+        dbpath = getDbPath()
         # Part 1: determine for a provided table which are the primary key field lists
         
         SqlStatement  = "SELECT l.name FROM pragma_table_info('$tableName') as l WHERE l.pk <> 0;"
@@ -99,7 +103,7 @@ module HtmlTables
     It depends on the internal functions htmlTableHeaders and htmlTableData for the construction of the header row an the tuples rows.
     """
     function htmlTable(tableName)#,dbpath)
-        
+        dbpath = getDbPath()
         
         databaseConnection = SQLite.DB(dbpath)
         
@@ -119,7 +123,7 @@ module HtmlTables
     WARNING: there is no checking of the type of query provided so this couls lead to malicious operations against the database.
     """
     function htmlTableForQuery(SqlStatement)#,dbpath)
-        
+        dbpath = getDbPath()
         databaseConnection = SQLite.DB(dbpath)
         
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
@@ -132,6 +136,7 @@ module HtmlTables
     Annotation to be completed
     """
     function executeInsert(SqlStatement)#,dbpath)
+        dbpath = getDbPath()
         databaseConnection = SQLite.DB(dbpath)
 
         SqlResult = DBInterface.execute(databaseConnection, SqlStatement)
