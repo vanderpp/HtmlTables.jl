@@ -1,4 +1,3 @@
-ENV["dbpath"] = "/Users/pietvanderpaelt/sc622webApp/weaponshop.sqlite"
 module HtmlTables
     using SQLite
     using DataFrames
